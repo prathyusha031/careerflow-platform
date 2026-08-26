@@ -10,6 +10,7 @@ from app.models.user import User
 from app.models.job import Job
 from app.models.profile import Profile
 from app.models.notification import Notification
+from app.models.application import Application
 from app.core.security import get_password_hash
 
 
@@ -244,103 +245,214 @@ DEMO_JOBS = [
 
 def seed():
     db = SessionLocal()
+
     try:
-        # Check if data exists
-        existing_users = db.query(User).count()
-        if existing_users > 0:
-            print("Database already seeded. Skipping.")
-            return
+        # ==========================================
+        # Get or create demo user
+        # ==========================================
+        demo_user = db.query(User).filter(
+            User.email == "demo@careerflow.dev"
+        ).first()
 
-        # Create demo user
-        demo_user = User(
-            name="Demo User",
-            email="demo@careerflow.dev",
-            password_hash=get_password_hash("DemoPassword123!"),
-            role="user",
-        )
-        db.add(demo_user)
-        db.flush()
-
-        # Create admin user
-        admin_user = User(
-            name="Admin User",
-            email="admin@careerflow.dev",
-            password_hash=get_password_hash("AdminPassword123!"),
-            role="admin",
-        )
-        db.add(admin_user)
-        db.flush()
-
-        # Create profiles
-        demo_profile = Profile(
-            user_id=demo_user.id,
-            skills=json.dumps(["React", "TypeScript", "Python", "SQL"]),
-            experience="3 years as a frontend developer at TechCorp, 1 year as a full-stack developer at StartUpXYZ.",
-            education="B.Tech Computer Science, Osmania University, 2020",
-            preferred_locations=json.dumps(["Hyderabad", "Bangalore", "Remote"]),
-            preferred_job_types=json.dumps(["full-time", "contract"]),
-        )
-        db.add(demo_profile)
-
-        admin_profile = Profile(
-            user_id=admin_user.id,
-            skills=json.dumps(["System Architecture", "Cloud Computing", "Team Leadership"]),
-            experience="10+ years in software engineering, 5 years in management.",
-            education="M.Tech Computer Science, IIT Hyderabad, 2015",
-            preferred_locations=json.dumps(["Hyderabad"]),
-            preferred_job_types=json.dumps(["full-time"]),
-        )
-        db.add(admin_profile)
-
-        # Create jobs
-        for job_data in DEMO_JOBS:
-            job = Job(**job_data)
-            db.add(job)
-
-        db.flush()
-
-        # Create some sample applications for the demo user
-        jobs = db.query(Job).limit(5).all()
-        statuses = ["applied", "screening", "interview", "applied", "rejected"]
-        for i, job in enumerate(jobs):
-            app = Application(
-                user_id=demo_user.id,
-                job_id=job.id,
-                status=statuses[i],
-                notes=f"Applied through CareerFlow. Interested in the {job.title} role.",
-                next_action="Wait for response" if statuses[i] == "applied" else "Prepare for interview",
+        if not demo_user:
+            demo_user = User(
+                name="Demo User",
+                email="demo@careerflow.dev",
+                password_hash=get_password_hash("DemoPassword123!"),
+                role="user",
             )
-            db.add(app)
+            db.add(demo_user)
+            db.flush()
 
-        # Create notifications for demo user
+        # ==========================================
+        # Get or create admin user
+        # ==========================================
+        admin_user = db.query(User).filter(
+            User.email == "admin@careerflow.dev"
+        ).first()
+
+        if not admin_user:
+            admin_user = User(
+                name="Admin User",
+                email="admin@careerflow.dev",
+                password_hash=get_password_hash("AdminPassword123!"),
+                role="admin",
+            )
+            db.add(admin_user)
+            db.flush()
+
+        # ==========================================
+        # Get or create demo profile
+        # ==========================================
+        demo_profile = db.query(Profile).filter(
+            Profile.user_id == demo_user.id
+        ).first()
+
+        if not demo_profile:
+            demo_profile = Profile(
+                user_id=demo_user.id,
+                skills=json.dumps([
+                    "React",
+                    "TypeScript",
+                    "Python",
+                    "SQL"
+                ]),
+                experience=(
+                    "3 years as a frontend developer at TechCorp, "
+                    "1 year as a full-stack developer at StartUpXYZ."
+                ),
+                education="B.Tech Computer Science, Osmania University, 2020",
+                preferred_locations=json.dumps([
+                    "Hyderabad",
+                    "Bangalore",
+                    "Remote"
+                ]),
+                preferred_job_types=json.dumps([
+                    "full-time",
+                    "contract"
+                ]),
+            )
+            db.add(demo_profile)
+
+        # ==========================================
+        # Get or create admin profile
+        # ==========================================
+        admin_profile = db.query(Profile).filter(
+            Profile.user_id == admin_user.id
+        ).first()
+
+        if not admin_profile:
+            admin_profile = Profile(
+                user_id=admin_user.id,
+                skills=json.dumps([
+                    "System Architecture",
+                    "Cloud Computing",
+                    "Team Leadership"
+                ]),
+                experience=(
+                    "10+ years in software engineering, "
+                    "5 years in management."
+                ),
+                education="M.Tech Computer Science, IIT Hyderabad, 2015",
+                preferred_locations=json.dumps([
+                    "Hyderabad"
+                ]),
+                preferred_job_types=json.dumps([
+                    "full-time"
+                ]),
+            )
+            db.add(admin_profile)
+
+        # ==========================================
+        # Create jobs if they don't already exist
+        # ==========================================
+        existing_job_titles = {
+            job.title
+            for job in db.query(Job).all()
+        }
+
+        for job_data in DEMO_JOBS:
+            if job_data["title"] not in existing_job_titles:
+                job = Job(**job_data)
+                db.add(job)
+
+        db.flush()
+
+        # ==========================================
+        # Create sample applications
+        # Only if they don't already exist
+        # ==========================================
+        jobs = db.query(Job).limit(5).all()
+
+        statuses = [
+            "applied",
+            "screening",
+            "interview",
+            "applied",
+            "rejected",
+        ]
+
+        for i, job in enumerate(jobs):
+            existing_application = db.query(Application).filter(
+                Application.user_id == demo_user.id,
+                Application.job_id == job.id,
+            ).first()
+
+            if not existing_application:
+                application = Application(
+                    user_id=demo_user.id,
+                    job_id=job.id,
+                    status=statuses[i],
+                    notes=(
+                        f"Applied through CareerFlow. "
+                        f"Interested in the {job.title} role."
+                    ),
+                    next_action=(
+                        "Wait for response"
+                        if statuses[i] == "applied"
+                        else "Prepare for interview"
+                    ),
+                )
+                db.add(application)
+
+        # ==========================================
+        # Create notifications
+        # Only if they don't already exist
+        # ==========================================
         notifications_data = [
             {
                 "title": "Interview Reminder",
-                "message": "Your interview with TechNova Solutions is tomorrow at 10:00 AM.",
+                "message": (
+                    "Your interview with TechNova Solutions "
+                    "is tomorrow at 10:00 AM."
+                ),
                 "notification_type": "interview",
             },
             {
                 "title": "Application Status Updated",
-                "message": "Your application for Backend Developer at DataPulse Inc. has moved to Screening stage.",
+                "message": (
+                    "Your application for Backend Developer at "
+                    "DataPulse Inc. has moved to Screening stage."
+                ),
                 "notification_type": "info",
             },
             {
                 "title": "New Job Matches",
-                "message": "5 new jobs match your preferences. Check them out!",
+                "message": (
+                    "5 new jobs match your preferences. "
+                    "Check them out!"
+                ),
                 "notification_type": "info",
             },
             {
                 "title": "Follow-up Reminder",
-                "message": "It's been 5 days since you applied to Full Stack Engineer at CloudBridge. Consider following up.",
+                "message": (
+                    "It's been 5 days since you applied to "
+                    "Full Stack Engineer at CloudBridge. "
+                    "Consider following up."
+                ),
                 "notification_type": "warning",
             },
         ]
 
         for notif_data in notifications_data:
-            notification = Notification(user_id=demo_user.id, **notif_data)
-            db.add(notification)
+            existing_notification = db.query(Notification).filter(
+                Notification.user_id == demo_user.id,
+                Notification.title == notif_data["title"],
+            ).first()
 
+            if not existing_notification:
+                notification = Notification(
+                    user_id=demo_user.id,
+                    **notif_data,
+                )
+                db.add(notification)
+
+        # ==========================================
+        # Commit everything
+        # ==========================================
         db.commit()
+
         print("✅ Database seeded successfully!")
         print("   Demo account: demo@careerflow.dev / DemoPassword123!")
         print("   Admin account: admin@careerflow.dev / AdminPassword123!")
@@ -349,6 +461,7 @@ def seed():
         db.rollback()
         print(f"❌ Error seeding database: {e}")
         raise
+
     finally:
         db.close()
 
