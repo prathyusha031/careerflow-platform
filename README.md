@@ -444,17 +444,21 @@ npx tsc --noEmit # Type checking
 
 ---
 
-### CI/CD Pipeline
+## CI/CD
 
 The project uses GitHub Actions to automatically validate changes before deployment.
 
+### CI Pipeline
+
 **Backend pipeline:**
+
 - Installs Python dependencies
 - Validates backend imports
 - Runs automated tests
 - Verifies backend code integrity
 
 **Frontend pipeline:**
+
 - Installs Node.js dependencies
 - Runs ESLint
 - Runs TypeScript type checking
@@ -463,7 +467,7 @@ The project uses GitHub Actions to automatically validate changes before deploym
 
 Both workflows run automatically on relevant pushes and pull requests to the `main` branch.
 
-### Deployment Flow
+### CI/CD Flow
 
 ```text
 Developer
@@ -487,8 +491,7 @@ Frontend         Backend
    └───────┬───────┘
            ▼
       Production App
-
----
+```
 
 ## Deployment
 
@@ -543,6 +546,7 @@ FastAPI Backend
  │ SQLAlchemy
  ▼
 PostgreSQL
+```
 
 ---
 
@@ -564,12 +568,12 @@ PostgreSQL
 
 AI assistance was used throughout this project for:
 
-- **Architecture brainstorming**: System design decisions, component architecture
-- **Code generation**: Writing React components, FastAPI routes, database models, schemas
-- **Debugging**: Identifying and fixing type errors, API issues, styling problems
-- **Documentation**: README, API documentation, inline comments
-- **CI/CD**: GitHub Actions workflow generation and configuration
-- **Testing assistance**: Test suite design and implementation
+- **Architecture brainstorming:** System design decisions and component architecture
+- **Code generation:** React components, FastAPI routes, database models, and schemas
+- **Debugging:** Identifying and fixing type errors, API issues, and styling problems
+- **Documentation:** README, API documentation, and inline comments
+- **CI/CD:** GitHub Actions workflow generation and configuration
+- **Testing assistance:** Test suite design and implementation
 
 All code was reviewed, tested, and verified to work correctly before delivery.
 
@@ -577,13 +581,13 @@ All code was reviewed, tested, and verified to work correctly before delivery.
 
 ## Challenges & Solutions
 
-1. **Kanban Board Responsiveness**: The horizontal scrolling Kanban board required careful CSS to work on both desktop (side-by-side columns) and mobile (scrollable). Solved with `overflow-x-auto` and minimum column widths.
+1. **Kanban Board Responsiveness:** The horizontal scrolling Kanban board required careful CSS to work on both desktop (side-by-side columns) and mobile (scrollable). Solved with `overflow-x-auto` and minimum column widths.
 
-2. **JWT Token Management**: Keeping authentication state synchronized between the API client, React context, and localStorage required careful coordination. Solved with a centralized `ApiClient` class that handles token storage.
+2. **JWT Token Management:** Keeping authentication state synchronized between the API client, React context, and localStorage required careful coordination. Solved with a centralized `ApiClient` class that handles token storage.
 
-3. **Database Seeding**: Creating realistic demo data that populates the database with meaningful content for showcasing all features. Solved with a comprehensive seed script covering users, profiles, jobs, applications, and notifications.
+3. **Database Seeding:** Creating realistic demo data that populates the database with meaningful content for showcasing all features. Solved with a comprehensive seed script covering users, profiles, jobs, applications, and notifications.
 
-4. **Cross-Origin Authentication**: Frontend on Vercel and backend on a separate host requires proper CORS configuration and environment variable management. Solved with configurable origins and production URL settings.
+4. **Cross-Origin Authentication:** Frontend on Vercel and backend on a separate host requires proper CORS configuration and environment variable management. Solved with configurable origins and production URL settings.
 
 ---
 
@@ -618,6 +622,8 @@ This project was developed as a technical assessment demonstrating full-stack de
 - **Database:** PostgreSQL
 
 The application was tested locally and verified after production deployment.
+
+---
 
 ## License
 
