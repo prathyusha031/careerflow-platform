@@ -20,11 +20,11 @@ import Skeleton from '../components/ui/Skeleton';
 function formatSalary(min?: number, max?: number) {
   if (!min && !max) return 'Not specified';
 
-  const format = (n: number) => `₹${Math.round(n / 1000)}K`;
+  const format = (n: number) => `₹${(n / 100000).toFixed(1)}L`;
 
-  if (min && max) return `${format(min)} - ${format(max)}/month`;
-  if (min) return `From ${format(min)}/month`;
-  return `Up to ${format(max!)}/month`;
+  if (min && max) return `${format(min)} - ${format(max)}/year`;
+  if (min) return `From ${format(min)}/year`;
+  return `Up to ${format(max!)}/year`;
 }
 export default function JobDetail() {
   const { id } = useParams<{ id: string }>();

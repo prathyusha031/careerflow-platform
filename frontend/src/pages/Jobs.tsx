@@ -20,6 +20,7 @@ import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Badge from '../components/ui/Badge';
 import Skeleton from '../components/ui/Skeleton';
+import { formatSalary } from "../utils/formatSalary";
 
 const REMOTE_OPTIONS = [
   { value: '', label: 'All' },
@@ -50,15 +51,6 @@ const SORT_OPTIONS = [
   { value: 'salary_low', label: 'Salary: Low to High' },
 ];
 
-function formatSalary(min?: number, max?: number) {
-  if (!min && !max) return null;
-
-  const format = (n: number) => `₹${Math.round(n / 1000)}K`;
-
-  if (min && max) return `${format(min)} - ${format(max)}/month`;
-  if (min) return `From ${format(min)}/month`;
-  return `Up to ${format(max!)}/month`;
-}
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
   const days = Math.floor(diff / 86400000);
@@ -459,7 +451,7 @@ export default function Jobs() {
                   to={`/jobs/${job.id}`}
                   className="text-sm font-medium text-primary-600 hover:text-primary-700"
                 >
-                  View Details â†’
+                  View Details →
                 </Link>
               </div>
             </Card>

@@ -9,14 +9,7 @@ import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 import EmptyState from '../components/ui/EmptyState';
 import Skeleton from '../components/ui/Skeleton';
-
-function formatSalary(min?: number, max?: number) {
-  if (!min && !max) return null;
-  const format = (n: number) => `₹${(n / 100000).toFixed(1)}L`;
-  if (min && max) return `${format(min)} - ${format(max)}/yr`;
-  if (min) return `From ${format(min)}/yr`;
-  return `Up to ${format(max!)}/yr`;
-}
+import { formatSalary } from "../utils/formatSalary";
 
 export default function SavedJobs() {
   const [savedJobs, setSavedJobs] = useState<SavedJob[]>([]);
