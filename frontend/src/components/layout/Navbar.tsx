@@ -20,21 +20,27 @@ export default function Navbar() {
   const [profileOpen, setProfileOpen] = useState(false);
   const location = useLocation();
 
-  const navLinks = user
+  const publicLinks = [
+    { to: '/jobs', label: 'Jobs', icon: Briefcase },
+  ];
+
+  const authLinks = user
     ? [
         { to: '/jobs', label: 'Jobs', icon: Briefcase },
         { to: '/applications', label: 'Applications', icon: FolderOpen },
         { to: '/saved', label: 'Saved', icon: Bookmark },
         { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
       ]
-    : [];
+    : [
+        { to: '/jobs', label: 'Jobs', icon: Briefcase },
+      ];
 
   return (
-    <nav className="bg-white border-b border-surface-200 sticky top-0 z-40">
+    <nav className="bg-white/95 backdrop-blur-sm border-b border-surface-200 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5">
+          <Link to="/" className="flex items-center gap-2.5 shrink-0">
             <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
               <Briefcase className="w-5 h-5 text-white" />
             </div>
@@ -43,9 +49,9 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map(({ to, label, icon: Icon }) => (
+            {(user ? authLinks : publicLinks).map(({ to, label, icon: Icon }) => (
               <Link
-                key={to}
+                key={`${to}-${label}`}
                 to={to}
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   location.pathname === to
@@ -53,14 +59,14 @@ export default function Navbar() {
                     : 'text-surface-600 hover:text-surface-900 hover:bg-surface-50'
                 }`}
               >
-                <Icon className="w-4 h-4" />
+                {Icon && <Icon className="w-4 h-4" />}
                 {label}
               </Link>
             ))}
           </div>
 
           {/* Desktop Right */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2">
             {user ? (
               <>
                 <Link
@@ -85,9 +91,9 @@ export default function Navbar() {
                         onClick={() => setProfileOpen(false)}
                       />
                       <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-surface-200 py-1 z-50">
-                        <div className="px-3 py-2 border-b border-surface-100">
+                        <div className="px-3 py-2.5 border-b border-surface-100">
                           <p className="text-sm font-medium text-surface-900">{user.name}</p>
-                          <p className="text-xs text-surface-500">{user.email}</p>
+                          <p className="text-xs text-surface-500 mt-0.5">{user.email}</p>
                         </div>
                         <Link
                           to="/profile"
@@ -107,16 +113,18 @@ export default function Navbar() {
                             Admin Panel
                           </Link>
                         )}
-                        <button
-                          onClick={() => {
-                            setProfileOpen(false);
-                            logout();
-                          }}
-                          className="flex items-center gap-2 px-3 py-2 text-sm text-danger-600 hover:bg-danger-50 w-full"
-                        >
-                          <LogOut className="w-4 h-4" />
-                          Sign out
-                        </button>
+                        <div className="border-t border-surface-100 mt-1 pt-1">
+                          <button
+                            onClick={() => {
+                              setProfileOpen(false);
+                              logout();
+                            }}
+                            className="flex items-center gap-2 px-3 py-2 text-sm text-danger-600 hover:bg-danger-50 w-full"
+                          >
+                            <LogOut className="w-4 h-4" />
+                            Sign out
+                          </button>
+                        </div>
                       </div>
                     </>
                   )}
@@ -132,7 +140,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   to="/register"
-                  className="px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors shadow-sm"
                 >
                   Get Started
                 </Link>
@@ -154,9 +162,9 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden border-t border-surface-200 bg-white">
           <div className="px-4 py-3 space-y-1">
-            {navLinks.map(({ to, label, icon: Icon }) => (
+            {(user ? authLinks : publicLinks).map(({ to, label, icon: Icon }) => (
               <Link
-                key={to}
+                key={`${to}-${label}-mobile`}
                 to={to}
                 onClick={() => setMobileOpen(false)}
                 className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium ${
@@ -165,7 +173,7 @@ export default function Navbar() {
                     : 'text-surface-600 hover:bg-surface-50'
                 }`}
               >
-                <Icon className="w-4 h-4" />
+                {Icon && <Icon className="w-4 h-4" />}
                 {label}
               </Link>
             ))}

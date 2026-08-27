@@ -27,14 +27,14 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' }:
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+    <div className="fixed inset-0 z-50 flex items-center justify-center">      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <div
-        className={`relative bg-white rounded-xl shadow-xl mx-4 ${
+        className={`relative bg-white rounded-2xl shadow-2xl mx-4 ${
           size === 'sm' ? 'max-w-sm' : size === 'lg' ? 'max-w-2xl' : 'max-w-md'
-        } w-full max-h-[90vh] overflow-y-auto`}
+        } w-full max-h-[90vh] overflow-y-auto`
+      }
       >
-        <div className="flex items-center justify-between p-4 border-b border-surface-200">
+        <div className="flex items-center justify-between p-5 border-b border-surface-200">
           <h2 className="text-lg font-semibold text-surface-900">{title}</h2>
           <button
             onClick={onClose}
@@ -43,7 +43,7 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' }:
             <X className="w-5 h-5" />
           </button>
         </div>
-        <div className="p-4">{children}</div>
+        <div className="p-5">{children}</div>
       </div>
     </div>
   );

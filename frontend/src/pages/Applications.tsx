@@ -24,8 +24,7 @@ const STAGE_ORDER = STAGES.filter((s) => s !== 'rejected');
 function formatDate(dateStr?: string) {
   if (!dateStr) return null;
   return new Date(dateStr).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
+    month: 'short', day: 'numeric',
   });
 }
 
@@ -127,50 +126,43 @@ export default function Applications() {
   }
 
   return (
-    <div className="max-w-full mx-auto px-4 py-8">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-surface-900">Application Tracker</h1>
-        <p className="mt-1 text-surface-600">
+    <div className="max-w-full mx-auto px-4 py-6">
+      <div className="mb-5">
+        <h1 className="text-2xl font-bold text-surface-900">Application Tracker</h1>
+        <p className="mt-1 text-sm text-surface-500">
           {applications.length} total applications · {getStageApplications('interview').length}{' '}
           in interviews
         </p>
       </div>
 
       {/* Kanban Board */}
-      <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4">
+      <div className="flex gap-3 overflow-x-auto pb-4 -mx-4 px-4">
         {STAGES.map((stage) => {
           const stageApps = getStageApplications(stage);
+          const stageColor =
+            stage === 'applied' ? 'bg-blue-500' :
+            stage === 'screening' ? 'bg-yellow-500' :
+            stage === 'interview' ? 'bg-purple-500' :
+            stage === 'technical' ? 'bg-indigo-500' :
+            stage === 'final' ? 'bg-orange-500' :
+            stage === 'offer' ? 'bg-green-500' :
+            'bg-red-500';
+
           return (
-            <div key={stage} className="min-w-[280px] flex-1">
+            <div key={stage} className="min-w-[270px] flex-1">
               <div className="flex items-center gap-2 mb-3">
-                <div
-                  className={`w-2 h-2 rounded-full ${
-                    stage === 'applied'
-                      ? 'bg-blue-500'
-                      : stage === 'screening'
-                      ? 'bg-yellow-500'
-                      : stage === 'interview'
-                      ? 'bg-purple-500'
-                      : stage === 'technical'
-                      ? 'bg-indigo-500'
-                      : stage === 'final'
-                      ? 'bg-orange-500'
-                      : stage === 'offer'
-                      ? 'bg-green-500'
-                      : 'bg-red-500'
-                  }`}
-                />
-                <h3 className="text-sm font-semibold text-surface-700 uppercase tracking-wide">
+                <div className={`w-2 h-2 rounded-full ${stageColor}`} />
+                <h3 className="text-xs font-semibold text-surface-700 uppercase tracking-wide">
                   {STATUS_LABELS[stage]}
                 </h3>
-                <span className="text-xs text-surface-400 bg-surface-100 rounded-full px-2 py-0.5">
+                <span className="text-[11px] text-surface-400 bg-surface-100 rounded-full px-2 py-0.5 font-medium">
                   {stageApps.length}
                 </span>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {stageApps.map((app) => (
-                  <Card key={app.id} className="p-4" hover>
+                  <Card key={app.id} className="p-3.5" hover>
                     <div className="flex items-start justify-between mb-2">
                       <div className="min-w-0">
                         <h4 className="font-medium text-surface-900 text-sm truncate">
@@ -183,7 +175,7 @@ export default function Applications() {
                           onClick={() => {
                             setActiveStage(activeStage === app.id ? null : app.id);
                           }}
-                          className="p-1 rounded hover:bg-surface-100"
+                          className="p-1 rounded hover:bg-surface-100 transition-colors"
                         >
                           <MoreHorizontal className="w-4 h-4 text-surface-400" />
                         </button>
@@ -193,7 +185,7 @@ export default function Applications() {
                               className="fixed inset-0 z-40"
                               onClick={() => setActiveStage(null)}
                             />
-                            <div className="absolute right-0 top-8 bg-white rounded-lg shadow-lg border border-surface-200 py-1 z-50 w-44">
+                            <div className="absolute right-0 top-8 bg-white rounded-xl shadow-lg border border-surface-200 py-1 z-50 w-44">
                               {STAGE_ORDER.indexOf(app.status) > 0 && (
                                 <button
                                   onClick={() => {
@@ -273,7 +265,7 @@ export default function Applications() {
                       </p>
                     )}
 
-                    <div className="mt-3 pt-2 border-t border-surface-100 flex items-center justify-between">
+                    <div className="mt-2.5 pt-2 border-t border-surface-100 flex items-center justify-between">
                       {app.job?.location && (
                         <span className="text-xs text-surface-400">{app.job.location}</span>
                       )}
@@ -289,7 +281,7 @@ export default function Applications() {
                 ))}
 
                 {stageApps.length === 0 && (
-                  <div className="bg-surface-50 rounded-xl border border-dashed border-surface-200 p-6 text-center">
+                  <div className="bg-surface-50 rounded-xl border border-dashed border-surface-200 p-5 text-center">
                     <p className="text-xs text-surface-400">No applications</p>
                   </div>
                 )}

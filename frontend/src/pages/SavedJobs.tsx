@@ -42,9 +42,9 @@ export default function SavedJobs() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Skeleton className="h-10 w-48 mb-8" />
-        <div className="space-y-4">
+        <div className="space-y-3">
           {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton key={i} className="h-32" />
+            <Skeleton key={i} className="h-28" />
           ))}
         </div>
       </div>
@@ -54,7 +54,7 @@ export default function SavedJobs() {
   if (savedJobs.length === 0) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-surface-900 mb-8">Saved Jobs</h1>
+        <h1 className="text-2xl font-bold text-surface-900 mb-6">Saved Jobs</h1>
         <EmptyState
           icon={<Bookmark className="w-8 h-8 text-surface-400" />}
           title="No saved jobs yet"
@@ -70,35 +70,35 @@ export default function SavedJobs() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-surface-900">Saved Jobs</h1>
-        <p className="mt-1 text-surface-600">
+    <div className="max-w-4xl mx-auto px-4 py-6">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-surface-900">Saved Jobs</h1>
+        <p className="mt-1 text-sm text-surface-500">
           {savedJobs.length} {savedJobs.length === 1 ? 'job' : 'jobs'} saved
         </p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {savedJobs.map((saved) => {
           const job = saved.job;
           if (!job) return null;
           return (
-            <Card key={saved.id} className="p-5" hover>
+            <Card key={saved.id} className="p-4" hover>
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-3">
                     <div className="w-10 h-10 bg-primary-50 rounded-lg flex items-center justify-center shrink-0">
                       <Building2 className="w-5 h-5 text-primary-600" />
                     </div>
                     <div className="min-w-0">
                       <Link
                         to={`/jobs/${job.id}`}
-                        className="text-lg font-semibold text-surface-900 hover:text-primary-600 transition-colors"
+                        className="text-base font-semibold text-surface-900 hover:text-primary-600 transition-colors"
                       >
                         {job.title}
                       </Link>
                       <p className="text-sm text-surface-600 mt-0.5">{job.company}</p>
-                      <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-surface-500">
+                      <div className="flex flex-wrap items-center gap-2.5 mt-2 text-sm text-surface-500">
                         <span className="flex items-center gap-1">
                           <MapPin className="w-3.5 h-3.5" />
                           {job.location}

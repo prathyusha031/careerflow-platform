@@ -12,7 +12,6 @@ import {
   Target,
   TrendingUp,
   Zap,
-  ExternalLink,
 } from 'lucide-react';
 
 const features = [
@@ -52,7 +51,7 @@ const steps = [
   {
     number: '01',
     title: 'Discover',
-    description: 'Browse and search curated job listings from top companies across India.',
+    description: 'Browse and search curated job listings from top companies.',
     icon: Search,
   },
   {
@@ -64,16 +63,9 @@ const steps = [
   {
     number: '03',
     title: 'Track & Improve',
-    description: 'Follow your progress, prepare for interviews, and optimize your search with analytics.',
+    description: 'Follow your progress, prepare for interviews, and optimize with analytics.',
     icon: TrendingUp,
   },
-];
-
-const stats = [
-  { value: '10K+', label: 'Job Seekers' },
-  { value: '50K+', label: 'Applications Tracked' },
-  { value: '85%', label: 'Response Rate Improvement' },
-  { value: '3×', label: 'Faster Job Placement' },
 ];
 
 export default function Landing() {
@@ -90,9 +82,9 @@ export default function Landing() {
               <span className="text-xl font-bold text-surface-900">CareerFlow</span>
             </Link>
             <div className="hidden md:flex items-center gap-8">
+              <Link to="/jobs" className="text-sm font-medium text-surface-600 hover:text-surface-900 transition-colors">Jobs</Link>
               <a href="#features" className="text-sm font-medium text-surface-600 hover:text-surface-900 transition-colors">Features</a>
               <a href="#how-it-works" className="text-sm font-medium text-surface-600 hover:text-surface-900 transition-colors">How It Works</a>
-              <a href="#about" className="text-sm font-medium text-surface-600 hover:text-surface-900 transition-colors">About</a>
             </div>
             <div className="flex items-center gap-3">
               <Link
@@ -113,44 +105,42 @@ export default function Landing() {
       </nav>
 
       {/* Hero */}
-      <section className="relative pt-28 pb-20 sm:pt-36 sm:pb-28 bg-gradient-to-b from-primary-50/50 via-white to-white">
+      <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-20 bg-gradient-to-b from-primary-50/60 via-white to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-primary-50 text-primary-700 rounded-full px-4 py-1.5 text-sm font-medium mb-8 border border-primary-100">
+          <div className="text-center max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-primary-50 text-primary-700 rounded-full px-4 py-1.5 text-sm font-medium mb-6 border border-primary-100">
               <Zap className="w-4 h-4" />
               Your job search, organized for success
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-surface-900 leading-[1.1] tracking-tight">
-              Find the right opportunity.{' '}
-              <span className="text-primary-600">Stay organized.</span>{' '}
-              Get hired.
+              Your entire job search.{' '}
+              <span className="text-primary-600">One organized workspace.</span>
             </h1>
-            <p className="mt-6 text-lg sm:text-xl text-surface-600 max-w-2xl mx-auto leading-relaxed">
-              Discover opportunities, track applications, prepare for interviews, and understand
-              your progress — all from one workspace.
+            <p className="mt-5 text-lg sm:text-xl text-surface-600 max-w-2xl mx-auto leading-relaxed">
+              Discover jobs, track applications, manage interviews, and understand your
+              progress — all from one workspace.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
-                to="/register"
+                to="/jobs"
                 className="inline-flex items-center gap-2 px-7 py-3.5 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-all shadow-lg shadow-primary-600/25 hover:shadow-xl hover:shadow-primary-600/30"
               >
-                Start Tracking
+                Explore Jobs
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link
-                to="/jobs"
+                to="/register"
                 className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-surface-700 font-semibold rounded-xl border border-surface-300 hover:border-surface-400 hover:bg-surface-50 transition-all"
               >
-                <Search className="w-5 h-5" />
-                Explore Jobs
+                Track Applications
               </Link>
             </div>
           </div>
 
           {/* Product Preview */}
-          <div className="mt-16 max-w-5xl mx-auto">
-            <div className="bg-white rounded-2xl border border-surface-200 shadow-2xl shadow-surface-200/40 p-3 sm:p-6">
-              {/* Mock dashboard header */}
+          <div className="mt-12 max-w-5xl mx-auto">
+            <div className="bg-white rounded-2xl border border-surface-200 shadow-2xl shadow-surface-200/40 p-3 sm:p-5">
+              {/* Mock browser chrome */}
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-400" />
@@ -163,6 +153,7 @@ export default function Landing() {
               </div>
               {/* Mock dashboard content */}
               <div className="bg-surface-50 rounded-xl p-4 sm:p-6">
+                {/* Summary cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
                   {[
                     { label: 'Applications', value: '24', color: 'bg-primary-500' },
@@ -177,6 +168,7 @@ export default function Landing() {
                     </div>
                   ))}
                 </div>
+                {/* Kanban mock */}
                 <div className="grid grid-cols-5 gap-2 hidden sm:grid">
                   {['Applied', 'Screening', 'Interview', 'Technical', 'Offer'].map((stage) => (
                     <div key={stage} className="bg-white rounded-xl p-3 border border-surface-100">
@@ -195,24 +187,10 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 bg-surface-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-white">{stat.value}</div>
-                <div className="mt-1 text-sm text-surface-400">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Features */}
-      <section id="features" className="py-24 bg-white">
+      <section id="features" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-14">
             <p className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-3">Features</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-surface-900">
               Everything you need to get hired
@@ -221,14 +199,14 @@ export default function Landing() {
               A complete platform designed to make your job search more effective and organized.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature) => (
               <div
                 key={feature.title}
                 className="group p-6 rounded-2xl border border-surface-200 hover:border-primary-200 hover:shadow-lg transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center mb-4 group-hover:bg-primary-100 transition-colors">
-                  <feature.icon className="w-6 h-6 text-primary-600" />
+                <div className="w-11 h-11 rounded-xl bg-primary-50 flex items-center justify-center mb-4 group-hover:bg-primary-100 transition-colors">
+                  <feature.icon className="w-5.5 h-5.5 text-primary-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-surface-900 mb-2">{feature.title}</h3>
                 <p className="text-sm text-surface-600 leading-relaxed">{feature.description}</p>
@@ -239,9 +217,9 @@ export default function Landing() {
       </section>
 
       {/* How it works */}
-      <section id="how-it-works" className="py-24 bg-surface-50">
+      <section id="how-it-works" className="py-20 bg-surface-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-14">
             <p className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-3">Process</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-surface-900">
               How it works
@@ -250,19 +228,21 @@ export default function Landing() {
               Three simple steps to transform your job search.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {steps.map((step, index) => (
               <div key={step.title} className="relative">
-                <div className="bg-white rounded-2xl border border-surface-200 p-8 h-full">
-                  <div className="text-sm font-bold text-primary-600 mb-4">{step.number}</div>
-                  <div className="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center mb-4">
-                    <step.icon className="w-6 h-6 text-primary-600" />
+                <div className="bg-white rounded-2xl border border-surface-200 p-7 h-full">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-sm font-bold text-primary-600 bg-primary-50 rounded-lg px-2.5 py-1">{step.number}</div>
+                    <div className="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center">
+                      <step.icon className="w-5 h-5 text-primary-600" />
+                    </div>
                   </div>
                   <h3 className="text-xl font-semibold text-surface-900 mb-2">{step.title}</h3>
-                  <p className="text-surface-600 leading-relaxed">{step.description}</p>
+                  <p className="text-surface-600 text-sm leading-relaxed">{step.description}</p>
                 </div>
                 {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-surface-300" />
+                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-0.5 bg-surface-300" />
                 )}
               </div>
             ))}
@@ -270,20 +250,20 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Product Preview - Application Tracker */}
-      <section className="py-24 bg-white">
+      {/* Application Tracking Preview */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <p className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-3">Application Tracking</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-surface-900 mb-6">
+              <h2 className="text-3xl sm:text-4xl font-bold text-surface-900 mb-5">
                 Track every application, never miss an opportunity
               </h2>
-              <p className="text-lg text-surface-600 mb-8 leading-relaxed">
+              <p className="text-lg text-surface-600 mb-7 leading-relaxed">
                 CareerFlow gives you a clear view of your entire job search pipeline.
                 See where every application stands, when to follow up, and which opportunities to prioritize.
               </p>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {[
                   'Visual Kanban board for application tracking',
                   'Smart notifications for follow-ups and interviews',
@@ -292,42 +272,41 @@ export default function Landing() {
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" />
-                    <span className="text-surface-700">{item}</span>
+                    <span className="text-surface-700 text-sm">{item}</span>
                   </div>
                 ))}
               </div>
               <Link
                 to="/register"
-                className="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-colors"
+                className="inline-flex items-center gap-2 mt-7 px-6 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-colors"
               >
                 Start Free
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-            <div className="bg-surface-50 rounded-2xl border border-surface-200 p-6">
-              <div className="space-y-3">
+            {/* Kanban preview */}
+            <div className="bg-surface-50 rounded-2xl border border-surface-200 p-5">
+              <div className="grid grid-cols-5 gap-2">
                 {[
-                  { title: 'Senior Frontend Engineer', company: 'TechNova', status: 'Interview', color: 'bg-purple-100 text-purple-700' },
-                  { title: 'Backend Developer', company: 'DataPulse', status: 'Screening', color: 'bg-yellow-100 text-yellow-700' },
-                  { title: 'Full Stack Engineer', company: 'CloudBridge', status: 'Applied', color: 'bg-blue-100 text-blue-700' },
-                  { title: 'DevOps Engineer', company: 'Skyline', status: 'Offer', color: 'bg-green-100 text-green-700' },
-                ].map((app) => (
-                  <div
-                    key={app.title}
-                    className="bg-white rounded-xl border border-surface-200 p-4 flex items-center justify-between"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-surface-100 rounded-lg flex items-center justify-center">
-                        <Briefcase className="w-5 h-5 text-surface-500" />
-                      </div>
-                      <div>
-                        <div className="font-medium text-surface-900 text-sm">{app.title}</div>
-                        <div className="text-xs text-surface-500">{app.company}</div>
-                      </div>
+                  { stage: 'Applied', count: 2, color: 'bg-blue-500' },
+                  { stage: 'Screening', count: 2, color: 'bg-yellow-500' },
+                  { stage: 'Interview', count: 1, color: 'bg-purple-500' },
+                  { stage: 'Technical', count: 1, color: 'bg-indigo-500' },
+                  { stage: 'Offer', count: 1, color: 'bg-green-500' },
+                ].map((col) => (
+                  <div key={col.stage}>
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <div className={`w-2 h-2 rounded-full ${col.color}`} />
+                      <span className="text-[10px] font-semibold text-surface-500 uppercase tracking-wide">{col.stage}</span>
                     </div>
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${app.color}`}>
-                      {app.status}
-                    </span>
+                    <div className="space-y-1.5">
+                      {Array.from({ length: col.count }).map((_, i) => (
+                        <div key={i} className="bg-white rounded-lg border border-surface-100 p-2">
+                          <div className="h-1.5 bg-surface-100 rounded w-3/4 mb-1.5" />
+                          <div className="h-1.5 bg-surface-100 rounded w-1/2" />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -337,12 +316,12 @@ export default function Landing() {
       </section>
 
       {/* Analytics Preview */}
-      <section className="py-24 bg-surface-50">
+      <section className="py-20 bg-surface-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <div className="bg-white rounded-2xl border border-surface-200 p-6">
-                <h3 className="text-sm font-semibold text-surface-700 mb-4">Applications by Stage</h3>
+                <h3 className="text-sm font-semibold text-surface-700 mb-5">Applications by Stage</h3>
                 <div className="space-y-3">
                   {[
                     { stage: 'Applied', count: 12, pct: 100, color: 'bg-blue-500' },
@@ -353,7 +332,7 @@ export default function Landing() {
                   ].map((item) => (
                     <div key={item.stage} className="flex items-center gap-3">
                       <span className="text-xs text-surface-600 w-20 text-right">{item.stage}</span>
-                      <div className="flex-1 bg-surface-100 rounded-full h-5 overflow-hidden">
+                      <div className="flex-1 bg-surface-100 rounded-full h-6 overflow-hidden">
                         <div
                           className={`h-full rounded-full flex items-center justify-end pr-2 ${item.color}`}
                           style={{ width: `${item.pct}%` }}
@@ -364,11 +343,25 @@ export default function Landing() {
                     </div>
                   ))}
                 </div>
+                <div className="grid grid-cols-3 gap-3 mt-6 pt-5 border-t border-surface-100">
+                  <div>
+                    <div className="text-xl font-bold text-surface-900">42%</div>
+                    <div className="text-xs text-surface-500">Response Rate</div>
+                  </div>
+                  <div>
+                    <div className="text-xl font-bold text-surface-900">21%</div>
+                    <div className="text-xs text-surface-500">Interview Rate</div>
+                  </div>
+                  <div>
+                    <div className="text-xl font-bold text-surface-900">8%</div>
+                    <div className="text-xs text-surface-500">Offer Rate</div>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="order-1 lg:order-2">
               <p className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-3">Analytics</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-surface-900 mb-6">
+              <h2 className="text-3xl sm:text-4xl font-bold text-surface-900 mb-5">
                 Understand your job search
               </h2>
               <p className="text-lg text-surface-600 mb-6 leading-relaxed">
@@ -384,7 +377,7 @@ export default function Landing() {
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" />
-                    <span className="text-surface-700">{item}</span>
+                    <span className="text-surface-700 text-sm">{item}</span>
                   </div>
                 ))}
               </div>
@@ -394,13 +387,13 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-primary-600">
+      <section className="py-20 bg-primary-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
             Ready to take control of your career?
           </h2>
-          <p className="text-lg text-primary-100 mb-10 max-w-2xl mx-auto">
-            Join thousands of job seekers who use CareerFlow to organize their search and land their dream job.
+          <p className="text-lg text-primary-100 mb-8 max-w-2xl mx-auto">
+            Organize your job search, track every application, and land your dream job with CareerFlow.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
@@ -410,14 +403,20 @@ export default function Landing() {
               Get Started Free
               <ArrowRight className="w-5 h-5" />
             </Link>
+            <Link
+              to="/jobs"
+              className="inline-flex items-center gap-2 px-8 py-4 text-white font-semibold rounded-xl border border-white/30 hover:bg-white/10 transition-all"
+            >
+              Browse Jobs
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer id="about" className="bg-surface-900 py-16">
+      <footer className="bg-surface-900 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
             <div className="col-span-2">
               <div className="flex items-center gap-2.5 mb-4">
                 <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
@@ -428,51 +427,31 @@ export default function Landing() {
               <p className="text-sm text-surface-400 leading-relaxed max-w-xs">
                 Your job search, organized for success. Discover opportunities, track applications, and build your career.
               </p>
-              <div className="flex items-center gap-3 mt-4">
-                <a href="#" className="p-2 rounded-lg text-surface-400 hover:text-white hover:bg-surface-800 transition-colors">
-                  <ExternalLink className="w-5 h-5" />
-                </a>
-                <a href="#" className="p-2 rounded-lg text-surface-400 hover:text-white hover:bg-surface-800 transition-colors">
-                  <ExternalLink className="w-5 h-5" />
-                </a>
-                <a href="#" className="p-2 rounded-lg text-surface-400 hover:text-white hover:bg-surface-800 transition-colors">
-                  <ExternalLink className="w-5 h-5" />
-                </a>
-              </div>
             </div>
             <div>
               <h3 className="text-sm font-semibold text-white mb-4">Product</h3>
               <ul className="space-y-2.5">
-                <li><a href="#features" className="text-sm text-surface-400 hover:text-white transition-colors">Features</a></li>
                 <li><Link to="/jobs" className="text-sm text-surface-400 hover:text-white transition-colors">Find Jobs</Link></li>
                 <li><Link to="/register" className="text-sm text-surface-400 hover:text-white transition-colors">Get Started</Link></li>
-                <li><a href="#" className="text-sm text-surface-400 hover:text-white transition-colors">Pricing</a></li>
+                <li><Link to="/dashboard" className="text-sm text-surface-400 hover:text-white transition-colors">Dashboard</Link></li>
+                <li><a href="#features" className="text-sm text-surface-400 hover:text-white transition-colors">Features</a></li>
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-white mb-4">Company</h3>
+              <h3 className="text-sm font-semibold text-white mb-4">Account</h3>
               <ul className="space-y-2.5">
-                <li><a href="#about" className="text-sm text-surface-400 hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="text-sm text-surface-400 hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="text-sm text-surface-400 hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="text-sm text-surface-400 hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white mb-4">Legal</h3>
-              <ul className="space-y-2.5">
-                <li><a href="#" className="text-sm text-surface-400 hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="text-sm text-surface-400 hover:text-white transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="text-sm text-surface-400 hover:text-white transition-colors">Cookie Policy</a></li>
+                <li><Link to="/login" className="text-sm text-surface-400 hover:text-white transition-colors">Sign In</Link></li>
+                <li><Link to="/register" className="text-sm text-surface-400 hover:text-white transition-colors">Create Account</Link></li>
+                <li><Link to="/profile" className="text-sm text-surface-400 hover:text-white transition-colors">Profile</Link></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-surface-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="border-t border-surface-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-surface-500">
-              © {new Date().getFullYear()} CareerFlow. All rights reserved.
+              &copy; {new Date().getFullYear()} CareerFlow. All rights reserved.
             </p>
             <p className="text-sm text-surface-600">
-              Built with ❤️ for job seekers everywhere.
+              Built with care for job seekers everywhere.
             </p>
           </div>
         </div>

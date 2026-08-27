@@ -29,10 +29,10 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-surface-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-surface-50 via-white to-primary-50/30 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <Link to="/" className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center">
+        <Link to="/" className="flex items-center justify-center gap-2.5 mb-8">
+          <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center shadow-sm shadow-primary-600/20">
             <Briefcase className="w-6 h-6 text-white" />
           </div>
           <span className="text-2xl font-bold text-surface-900">CareerFlow</span>
@@ -47,7 +47,7 @@ export default function Login() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow-sm sm:rounded-xl sm:px-10 border border-surface-200">
+        <div className="bg-white py-8 px-4 shadow-lg sm:rounded-2xl sm:px-10 border border-surface-200/60">
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
               <div className="bg-danger-50 border border-danger-200 text-danger-700 text-sm rounded-lg px-4 py-3">
@@ -78,7 +78,7 @@ export default function Login() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-8 text-surface-400 hover:text-surface-600"
+                className="absolute right-3 top-8 text-surface-400 hover:text-surface-600 transition-colors"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -89,9 +89,9 @@ export default function Login() {
             </Button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-surface-100">
+          <div className="mt-6 pt-5 border-t border-surface-100">
             <p className="text-xs text-center text-surface-500">
-              Demo: <span className="font-mono">demo@careerflow.dev</span> / <span className="font-mono">DemoPassword123!</span>
+              Demo: <span className="font-mono text-surface-600">demo@careerflow.dev</span> / <span className="font-mono text-surface-600">DemoPassword123!</span>
             </p>
           </div>
         </div>

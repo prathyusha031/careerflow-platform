@@ -45,12 +45,12 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`hidden lg:flex flex-col bg-white border-r border-surface-200 transition-all duration-300 ${
+      className={`hidden lg:flex flex-col bg-white border-r border-surface-200/80 transition-all duration-300 ${
         collapsed ? 'w-[68px]' : 'w-60'
       }`}
     >
       {/* Logo */}
-      <div className="h-16 flex items-center px-4 border-b border-surface-100">
+      <div className="h-16 flex items-center px-4 border-b border-surface-200/60">
         <Link to="/" className="flex items-center gap-2.5 overflow-hidden">
           <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center shrink-0">
             <Briefcase className="w-5 h-5 text-white" />
@@ -62,7 +62,7 @@ export default function Sidebar() {
       </div>
 
       {/* Main Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
         {mainNav.map((item) => {
           const active = isActive(item.to) && item.label !== 'Analytics';
           return (
@@ -85,7 +85,7 @@ export default function Sidebar() {
 
       {/* Admin section */}
       {isAdmin && (
-        <div className="px-3 py-2 border-t border-surface-100">
+        <div className="px-3 py-2 border-t border-surface-200/60">
           {!collapsed && (
             <p className="px-3 py-1 text-[11px] font-semibold text-surface-400 uppercase tracking-wider">
               Admin
@@ -113,7 +113,7 @@ export default function Sidebar() {
       )}
 
       {/* Bottom Nav */}
-      <div className="px-3 py-2 border-t border-surface-100 space-y-1">
+      <div className="px-3 py-2 border-t border-surface-200/60 space-y-0.5">
         {bottomNav.map((item) => {
           const active = location.pathname === item.to;
           return (

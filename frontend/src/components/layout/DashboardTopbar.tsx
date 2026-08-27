@@ -26,7 +26,7 @@ export default function DashboardTopbar() {
   };
 
   return (
-    <header className="h-16 bg-white border-b border-surface-200 flex items-center justify-between px-4 sm:px-6 shrink-0">
+    <header className="h-16 bg-white border-b border-surface-200/80 flex items-center justify-between px-4 sm:px-6 shrink-0">
       {/* Mobile menu */}
       <div className="lg:hidden flex items-center gap-3">
         <button

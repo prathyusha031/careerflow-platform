@@ -65,19 +65,19 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-surface-900 mb-8">Profile</h1>
+    <div className="max-w-3xl mx-auto px-4 py-6">
+      <h1 className="text-2xl font-bold text-surface-900 mb-6">Profile</h1>
 
       {/* User Info Card */}
-      <Card className="p-6 mb-6">
+      <Card className="p-6 mb-5">
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center">
-            <span className="text-2xl font-bold text-primary-700">
+          <div className="w-14 h-14 bg-primary-100 rounded-full flex items-center justify-center">
+            <span className="text-xl font-bold text-primary-700">
               {user?.name?.charAt(0).toUpperCase()}
             </span>
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-surface-900">{user?.name}</h2>
+            <h2 className="text-lg font-semibold text-surface-900">{user?.name}</h2>
             <div className="flex items-center gap-1.5 text-sm text-surface-500">
               <Mail className="w-3.5 h-3.5" />
               {user?.email}
@@ -91,8 +91,8 @@ export default function ProfilePage() {
 
       {/* Profile Form */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-surface-900 mb-6">Professional Information</h3>
-        <div className="space-y-5">
+        <h3 className="text-base font-semibold text-surface-900 mb-5">Professional Information</h3>
+        <div className="space-y-4">
           <div>
             <label className="flex items-center gap-2 text-sm font-medium text-surface-700 mb-1.5">
               <Code2 className="w-4 h-4 text-surface-400" />
@@ -102,7 +102,7 @@ export default function ProfilePage() {
               value={form.skills}
               onChange={(e) => setForm({ ...form, skills: e.target.value })}
               placeholder="React, TypeScript, Python, SQL..."
-              className="w-full px-3 py-2 border border-surface-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 h-20 resize-none"
+              className="w-full px-3 py-2 border border-surface-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-20 resize-none transition-colors"
             />
           </div>
 
@@ -115,7 +115,7 @@ export default function ProfilePage() {
               value={form.experience}
               onChange={(e) => setForm({ ...form, experience: e.target.value })}
               placeholder="Describe your work experience..."
-              className="w-full px-3 py-2 border border-surface-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 h-24 resize-none"
+              className="w-full px-3 py-2 border border-surface-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-24 resize-none transition-colors"
             />
           </div>
 
@@ -128,7 +128,7 @@ export default function ProfilePage() {
               value={form.education}
               onChange={(e) => setForm({ ...form, education: e.target.value })}
               placeholder="Your educational background..."
-              className="w-full px-3 py-2 border border-surface-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 h-20 resize-none"
+              className="w-full px-3 py-2 border border-surface-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-20 resize-none transition-colors"
             />
           </div>
 
@@ -157,7 +157,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <div className="mt-6 flex justify-end">
+        <div className="mt-5 flex justify-end">
           <Button onClick={handleSave} loading={saving}>
             <Save className="w-4 h-4 mr-1.5" />
             Save Profile

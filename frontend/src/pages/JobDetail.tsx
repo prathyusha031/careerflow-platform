@@ -295,7 +295,7 @@ export default function JobDetail() {
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Add any notes about your application (optional)"
-              className="w-full px-3 py-2 border border-surface-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 h-24 resize-none"
+              className="w-full px-3 py-2 border border-surface-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 h-24 resize-none"
             />
             <div className="flex gap-3 mt-4">
               <Button

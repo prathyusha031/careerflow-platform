@@ -86,10 +86,10 @@ export default function Notifications() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="flex items-center justify-between mb-8">
+    <div className="max-w-3xl mx-auto px-4 py-6">
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-surface-900">Notifications</h1>
+          <h1 className="text-2xl font-bold text-surface-900">Notifications</h1>
           {unreadCount > 0 && (
             <p className="text-sm text-surface-500 mt-1">
               {unreadCount} unread {unreadCount === 1 ? 'notification' : 'notifications'}
@@ -119,10 +119,10 @@ export default function Notifications() {
             return (
               <div
                 key={notification.id}
-                className={`bg-white rounded-xl border p-4 flex items-start gap-4 transition-colors cursor-pointer ${
+                className={`bg-white rounded-xl border p-4 flex items-start gap-3.5 transition-colors cursor-pointer ${
                   notification.is_read
-                    ? 'border-surface-200'
-                    : 'border-primary-200 bg-primary-50/30'
+                    ? 'border-surface-200 hover:bg-surface-50'
+                    : 'border-primary-200 bg-primary-50/30 hover:bg-primary-50/50'
                 }`}
                 onClick={() => !notification.is_read && markRead(notification.id)}
               >

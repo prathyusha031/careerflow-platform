@@ -156,7 +156,7 @@ export default function Jobs() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-surface-900">Find Your Next Role</h1>
         <p className="mt-1 text-surface-500">
           {total} {total === 1 ? 'opportunity' : 'opportunities'} available
@@ -169,7 +169,7 @@ export default function Jobs() {
           <div className="sticky top-24 space-y-6">
             <div>
               <h3 className="text-sm font-semibold text-surface-700 mb-3">Job Type</h3>
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 {JOB_TYPES.map((t) => (
                   <button
                     key={t.value}
@@ -188,7 +188,7 @@ export default function Jobs() {
 
             <div>
               <h3 className="text-sm font-semibold text-surface-700 mb-3">Experience</h3>
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 {EXPERIENCE_LEVELS.map((l) => (
                   <button
                     key={l.value}
@@ -207,7 +207,7 @@ export default function Jobs() {
 
             <div>
               <h3 className="text-sm font-semibold text-surface-700 mb-3">Work Style</h3>
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 {REMOTE_OPTIONS.map((r) => (
                   <button
                     key={r.value}
@@ -238,16 +238,16 @@ export default function Jobs() {
         {/* Main Content */}
         <div className="flex-1 min-w-0">
           {/* Search bar */}
-          <form onSubmit={handleSearch} className="mb-6">
+          <form onSubmit={handleSearch} className="mb-5">
             <div className="flex gap-3">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-400" />
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-400" />
                 <input
                   type="text"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
                   placeholder="Search by title, company, or keyword..."
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border border-surface-300 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl border border-surface-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white shadow-sm transition-shadow focus:shadow-md"
                 />
               </div>
               <div className="relative w-40 hidden sm:block">
@@ -260,7 +260,7 @@ export default function Jobs() {
                     setPage(1);
                   }}
                   placeholder="Location"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-surface-300 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-surface-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white shadow-sm transition-shadow focus:shadow-md"
                 />
               </div>
               <Button type="submit" className="shrink-0">
@@ -278,8 +278,8 @@ export default function Jobs() {
           </form>
 
           {/* Mobile Filters */}
-          <div className={`mb-6 lg:hidden ${showFilters ? 'block' : 'hidden'}`}>
-            <div className="bg-white rounded-xl border border-surface-200 p-4 space-y-4">
+          <div className={`mb-5 lg:hidden ${showFilters ? 'block' : 'hidden'}`}>
+            <div className="bg-white rounded-xl border border-surface-200 p-4 space-y-3 shadow-sm">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-semibold text-surface-700">Filters</h3>
                 <button onClick={() => setShowFilters(false)} className="text-surface-400 hover:text-surface-600">
@@ -289,7 +289,7 @@ export default function Jobs() {
               <select
                 value={jobType}
                 onChange={(e) => { setJobType(e.target.value); setPage(1); }}
-                className="w-full px-3 py-2 rounded-lg border border-surface-300 text-sm bg-white"
+                className="w-full px-3 py-2.5 rounded-lg border border-surface-200 text-sm bg-white focus:ring-2 focus:ring-primary-500"
               >
                 {JOB_TYPES.map((t) => (
                   <option key={t.value} value={t.value}>{t.label}</option>
@@ -298,7 +298,7 @@ export default function Jobs() {
               <select
                 value={experienceLevel}
                 onChange={(e) => { setExperienceLevel(e.target.value); setPage(1); }}
-                className="w-full px-3 py-2 rounded-lg border border-surface-300 text-sm bg-white"
+                className="w-full px-3 py-2.5 rounded-lg border border-surface-200 text-sm bg-white focus:ring-2 focus:ring-primary-500"
               >
                 {EXPERIENCE_LEVELS.map((l) => (
                   <option key={l.value} value={l.value}>{l.label}</option>
@@ -307,7 +307,7 @@ export default function Jobs() {
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-surface-300 text-sm bg-white"
+                className="w-full px-3 py-2.5 rounded-lg border border-surface-200 text-sm bg-white focus:ring-2 focus:ring-primary-500"
               >
                 {SORT_OPTIONS.map((s) => (
                   <option key={s.value} value={s.value}>{s.label}</option>
@@ -319,7 +319,7 @@ export default function Jobs() {
           {/* Sort bar */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className="flex rounded-lg border border-surface-300 overflow-hidden">
+              <div className="flex rounded-lg border border-surface-200 overflow-hidden shadow-sm">
                 {REMOTE_OPTIONS.map((r) => (
                   <button
                     key={r.value}
@@ -338,7 +338,7 @@ export default function Jobs() {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className="px-3 py-1.5 rounded-lg border border-surface-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="px-3 py-1.5 rounded-lg border border-surface-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 shadow-sm"
             >
               {SORT_OPTIONS.map((s) => (
                 <option key={s.value} value={s.value}>{s.label}</option>
@@ -364,9 +364,11 @@ export default function Jobs() {
         </div>
       ) : jobs.length === 0 ? (
         <div className="text-center py-16">
-          <Briefcase className="w-12 h-12 text-surface-300 mx-auto mb-4" />
+          <div className="w-16 h-16 rounded-full bg-surface-100 flex items-center justify-center mx-auto mb-4">
+            <Briefcase className="w-7 h-7 text-surface-300" />
+          </div>
           <h3 className="text-lg font-semibold text-surface-800 mb-2">No jobs found</h3>
-          <p className="text-surface-500 mb-4">Try adjusting your search or filters</p>
+          <p className="text-surface-500 text-sm mb-5">Try adjusting your search or filters</p>
           {hasFilters && (
             <Button variant="outline" onClick={clearFilters}>
               Clear all filters
@@ -412,14 +414,14 @@ export default function Jobs() {
                 ) : null}
               </div>
 
-              <div className="flex flex-wrap gap-1.5 mb-4">
+              <div className="flex flex-wrap gap-1.5 mb-3">
                 <Badge variant="primary">{JOB_TYPE_LABELS[job.job_type] || job.job_type}</Badge>
                 <Badge>{EXPERIENCE_LABELS[job.experience_level] || job.experience_level}</Badge>
                 <Badge variant="info">{job.remote_type}</Badge>
               </div>
 
              {job.skills && (
-  <div className="flex flex-wrap gap-1 mb-4">
+  <div className="flex flex-wrap gap-1 mb-3">
     {job.skills
       .split(",")
       .map((skill: string) => skill.trim())
@@ -488,5 +490,3 @@ export default function Jobs() {
     </div>
   );
 }
-
-

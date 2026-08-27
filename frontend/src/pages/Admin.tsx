@@ -139,10 +139,10 @@ export default function Admin() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="flex items-center gap-3 mb-8">
+    <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="flex items-center gap-3 mb-6">
         <Shield className="w-6 h-6 text-primary-600" />
-        <h1 className="text-3xl font-bold text-surface-900">Admin Panel</h1>
+        <h1 className="text-2xl font-bold text-surface-900">Admin Panel</h1>
       </div>
 
       {/* Tabs */}
@@ -308,7 +308,7 @@ export default function Admin() {
               <select
                 value={jobForm.job_type}
                 onChange={(e) => setJobForm({ ...jobForm, job_type: e.target.value })}
-                className="w-full px-3 py-2 border border-surface-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-surface-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
               >
                 <option value="full-time">Full Time</option>
                 <option value="part-time">Part Time</option>
@@ -321,7 +321,7 @@ export default function Admin() {
               <select
                 value={jobForm.experience_level}
                 onChange={(e) => setJobForm({ ...jobForm, experience_level: e.target.value })}
-                className="w-full px-3 py-2 border border-surface-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-surface-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
               >
                 <option value="entry">Entry Level</option>
                 <option value="mid">Mid Level</option>
@@ -334,7 +334,7 @@ export default function Admin() {
               <select
                 value={jobForm.remote_type}
                 onChange={(e) => setJobForm({ ...jobForm, remote_type: e.target.value })}
-                className="w-full px-3 py-2 border border-surface-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-surface-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
               >
                 <option value="remote">Remote</option>
                 <option value="hybrid">Hybrid</option>
@@ -359,7 +359,7 @@ export default function Admin() {
             <textarea
               value={jobForm.description}
               onChange={(e) => setJobForm({ ...jobForm, description: e.target.value })}
-              className="w-full px-3 py-2 border border-surface-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 h-24 resize-none"
+              className="w-full px-3 py-2 border border-surface-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 h-24 resize-none"
               required
             />
           </div>
@@ -368,7 +368,7 @@ export default function Admin() {
             <textarea
               value={jobForm.requirements}
               onChange={(e) => setJobForm({ ...jobForm, requirements: e.target.value })}
-              className="w-full px-3 py-2 border border-surface-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 h-24 resize-none"
+              className="w-full px-3 py-2 border border-surface-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 h-24 resize-none"
               required
             />
           </div>
@@ -377,7 +377,7 @@ export default function Admin() {
             <textarea
               value={jobForm.responsibilities}
               onChange={(e) => setJobForm({ ...jobForm, responsibilities: e.target.value })}
-              className="w-full px-3 py-2 border border-surface-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 h-24 resize-none"
+              className="w-full px-3 py-2 border border-surface-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 h-24 resize-none"
             />
           </div>
           <Input
