@@ -4,11 +4,22 @@
 
 CareerFlow is a full-stack job discovery and application tracking platform that helps job seekers organize their job search, track applications through every stage, and gain actionable insights through analytics.
 
+### 🔗 Live Demo
+
+**Frontend:** https://careerflow-platform.vercel.app/
+
+**GitHub Repository:** https://github.com/prathyusha031/careerflow-platform
+
+**Backend API:** https://careerflow-platform.onrender.com/
+
+**API Documentation:** https://careerflow-platform.onrender.com/docs
+
 ---
 
 ## Table of Contents
 
 - [Overview](#overview)
+- [Live Demo](#live-demo)
 - [Problem Statement](#problem-statement)
 - [Business Value](#business-value)
 - [Features](#features)
@@ -81,19 +92,34 @@ CareerFlow solves this by providing a single, intelligent workspace for the enti
 ## Architecture
 
 ```
-┌─────────────┐     ┌──────────────┐     ┌──────────────┐
-│   Frontend   │────▶│   REST API   │────▶│  PostgreSQL  │
-│  React/Vite  │     │   FastAPI    │     │  Database    │
-│  Tailwind    │     │  Python      │     │              │
-└─────────────┘     └──────────────┘     └──────────────┘
-      │                    │
-      │                    │
-      ▼                    ▼
-  Vercel              Backend Host
- (Static)          (Render/Railway)
+┌──────────────────────┐
+│      React/Vite      │
+│     TypeScript       │
+│     Tailwind CSS     │
+└──────────┬───────────┘
+           │ REST API
+           ▼
+┌──────────────────────┐
+│       FastAPI        │
+│       Python         │
+│   JWT Authentication │
+└──────────┬───────────┘
+           │ SQLAlchemy
+           ▼
+┌──────────────────────┐
+│     PostgreSQL       │
+│      Database        │
+└──────────────────────┘
+
+Frontend → Vercel
+Backend  → Render
+Database → PostgreSQL
+CI/CD    → GitHub Actions
 ```
 
-**Frontend** communicates with the **Backend API** via REST endpoints. The backend handles authentication, authorization, business logic, and database operations. PostgreSQL stores all persistent data with proper relational constraints.
+The **React frontend** communicates with the **FastAPI backend** through REST APIs. The backend handles authentication, authorization, business logic, validation, and database operations. PostgreSQL provides persistent relational storage.
+
+The production frontend is deployed on **Vercel**, while the FastAPI backend is deployed on **Render**. GitHub Actions provides automated CI checks for frontend and backend changes.
 
 ---
 
@@ -124,9 +150,10 @@ CareerFlow solves this by providing a single, intelligent workspace for the enti
 ### DevOps
 | Technology | Purpose |
 |------------|---------|
-| GitHub Actions | CI/CD |
+| GitHub Actions | CI/CD automation |
 | Vercel | Frontend deployment |
-| Render/Railway | Backend deployment |
+| Render | Backend deployment |
+| PostgreSQL | Production database |
 
 ---
 
@@ -417,55 +444,105 @@ npx tsc --noEmit # Type checking
 
 ---
 
-## CI/CD
+### CI/CD Pipeline
 
-### GitHub Actions Workflows
+The project uses GitHub Actions to automatically validate changes before deployment.
 
-**Backend CI** (`.github/workflows/backend-ci.yml`):
-- Triggers on pushes to main and PRs affecting `backend/`
-- Sets up PostgreSQL service container
+**Backend pipeline:**
 - Installs Python dependencies
-- Validates imports (syntax check)
-- Runs test suite with SQLite (for speed)
+- Validates backend imports
+- Runs automated tests
+- Verifies backend code integrity
 
-**Frontend CI** (`.github/workflows/frontend-ci.yml`):
-- Triggers on pushes to main and PRs affecting `frontend/`
-- Sets up Node.js 20
-- Runs linting
+**Frontend pipeline:**
+- Installs Node.js dependencies
+- Runs ESLint
 - Runs TypeScript type checking
-- Runs production build
-- Verifies build output exists
+- Creates a production build
+- Verifies the build output
 
-### Workflow Triggers
-- **Pull Requests**: All checks run
-- **Push to main**: All checks run + deployment verification
+Both workflows run automatically on relevant pushes and pull requests to the `main` branch.
+
+### Deployment Flow
+
+```text
+Developer
+   │
+   ▼
+Git Push / Pull Request
+   │
+   ▼
+GitHub Actions
+   ├── Frontend CI
+   └── Backend CI
+   │
+   ▼
+Validation Passed
+   │
+   ├───────────────┐
+   ▼               ▼
+Vercel           Render
+Frontend         Backend
+   │               │
+   └───────┬───────┘
+           ▼
+      Production App
 
 ---
 
 ## Deployment
 
-### Frontend (Vercel)
+CareerFlow is deployed as a full-stack production application.
 
-1. Connect GitHub repository to Vercel
-2. Set root directory to `frontend`
-3. Configure build settings:
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-4. Add environment variable:
-   - `VITE_API_URL` = Your backend URL + `/api`
+### Production URLs
 
-### Backend (Render/Railway)
+| Service | Platform | URL |
+|---------|----------|-----|
+| Frontend | Vercel | https://careerflow-platform.vercel.app/ |
+| Backend API | Render | https://careerflow-platform.onrender.com/ |
+| API Documentation | FastAPI / Swagger | https://careerflow-platform.onrender.com/docs |
+| Source Code | GitHub | https://github.com/prathyusha031/careerflow-platform |
 
-1. Connect GitHub repository
-2. Configure as Python service
-3. Set build command: `pip install -r requirements.txt`
-4. Set start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-5. Add environment variables from `.env.example`
-6. Add PostgreSQL database
+### Frontend Deployment
 
-### Architecture Decision
+The React/Vite frontend is deployed on Vercel.
 
-The frontend is deployed to Vercel (static hosting) while the backend runs on a separate Python-compatible host (Render/Railway). This is the standard architecture for full-stack applications with a Python backend, as Vercel only supports Node.js runtimes natively for serverless functions. The frontend communicates with the backend via the configured API URL.
+- **Platform:** Vercel
+- **Root directory:** `frontend`
+- **Build command:** `npm run build`
+- **Output directory:** `dist`
+- **Environment variable:** `VITE_API_URL`
+
+### Backend Deployment
+
+The FastAPI backend is deployed on Render.
+
+- **Platform:** Render
+- **Runtime:** Python
+- **Build command:** `pip install -r requirements.txt`
+- **Start command:** `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+- **Database:** PostgreSQL
+- **Environment variables:** Configured through the deployment platform
+
+### Production Architecture
+
+The deployed application follows this flow:
+
+```text
+User
+ │
+ ▼
+Vercel
+React Frontend
+ │
+ │ HTTPS REST API
+ ▼
+Render
+FastAPI Backend
+ │
+ │ SQLAlchemy
+ ▼
+PostgreSQL
 
 ---
 
@@ -524,6 +601,23 @@ All code was reviewed, tested, and verified to work correctly before delivery.
 - [ ] Rate limiting and API throttling
 
 ---
+
+## Assessment Submission
+
+This project was developed as a technical assessment demonstrating full-stack development, API design, database integration, authentication, CI/CD, and cloud deployment.
+
+### Deliverables
+
+- **Source Code:** https://github.com/prathyusha031/careerflow-platform
+- **Live Application:** https://careerflow-platform.vercel.app/
+- **Backend API:** https://careerflow-platform.onrender.com/
+- **API Documentation:** https://careerflow-platform.onrender.com/docs
+- **CI/CD:** GitHub Actions
+- **Frontend Hosting:** Vercel
+- **Backend Hosting:** Render
+- **Database:** PostgreSQL
+
+The application was tested locally and verified after production deployment.
 
 ## License
 
